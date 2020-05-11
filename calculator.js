@@ -13,9 +13,9 @@ function multiply(a, b){
 // TODO: for now returns miliard places po przecinku, search for the round method 
 // and fix it
 function divide(a, b){
-    // if (a || b === 0){
-    //     return 'ERROR'
-    // }
+    if (a || b === 0){
+        return 'ERROR'
+    }
     return (a/b);
     
 }
@@ -64,19 +64,32 @@ function operatorListener(){
             numbersArray.push(parseFloat(partialOperation));
             partialOperation = '';
 
-            // 
+            // if we have 2 numbers stored in numbersarray, then perform the calculation
+            // if the second elem is nan, remove it - this removes the problem of double operator input
             if (numbersArray.length === 2){
                 if (isNaN(numbersArray[1]) === true)
                     {
                         numbersArray.splice(1, 1);
                     }
+                else if (event.target.id === '='){
+                    numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
+                    numbersArray.splice(1, 1)
+                    calculator.firstElementChild.textContent = numbersArray[0];
+                    entireOperation = [];
+                    numbersArray = [];
+                    operatorInput = '';
+
+                }
                 else{
                     numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
                     numbersArray.splice(1, 1)
-                    entireOperation = numbersArray;
+                    entireOperation = numbersArray[0];
                     calculator.firstElementChild.textContent = entireOperation;
                 }
+
             }
+
+
             if (['+', '-', '*', '/'].includes(event.target.id)){
                 operatorInput = event.target.id;
                 entireOperation = numbersArray[0] + operatorInput;
@@ -91,7 +104,6 @@ function operatorListener(){
                 operatorInput = '';
                 calculator.firstElementChild.textContent = entireOperation;
             }
-            
         });
     });
 }
