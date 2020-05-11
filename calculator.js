@@ -13,7 +13,7 @@ function multiply(a, b){
 // TODO: for now returns miliard places po przecinku, search for the round method 
 // and fix it
 function divide(a, b){
-    if (a || b === 0){
+    if (a === 0 || b === 0){
         return 'ERROR'
     }
     return (a/b);
@@ -102,7 +102,7 @@ function operatorListener(){
                     }
                 }
             else{
-                calculator.firstElementChild.textContent = 'You need to start with a number';
+                calculator.firstElementChild.textContent = '';
             }
         });
     });
