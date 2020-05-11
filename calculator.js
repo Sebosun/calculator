@@ -64,45 +64,45 @@ function operatorListener(){
             numbersArray.push(parseFloat(partialOperation));
             partialOperation = '';
 
+
+            numbersArray = numbersArray.filter((number) =>{
+                return isNaN(number) === false;
+            });
+
             // if we have 2 numbers stored in numbersarray, then perform the calculation
-            // if the second elem is nan, remove it - this removes the problem of double operator input
-            if (numbersArray.length === 2){
-                if (isNaN(numbersArray[1]) === true)
-                    {
-                        numbersArray.splice(1, 1);
+            // if user has clicked '=' then the the data is cleared
+            if (numbersArray.length > 0){
+                    if (numbersArray.length === 2){
+                        if (event.target.id === '='){
+                            numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
+                            numbersArray.splice(1, 1)
+                            calculator.firstElementChild.textContent = numbersArray[0];
+                            entireOperation = [];
+                            numbersArray = [];
+                            operatorInput = '';
+                        }
+                        else{
+                            numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
+                            numbersArray.splice(1, 1)
+                            entireOperation = numbersArray[0];
+                            calculator.firstElementChild.textContent = entireOperation;
+                        }
                     }
-                else if (event.target.id === '='){
-                    numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
-                    numbersArray.splice(1, 1)
-                    calculator.firstElementChild.textContent = numbersArray[0];
-                    entireOperation = [];
-                    numbersArray = [];
-                    operatorInput = '';
-
+                    if (['+', '-', '*', '/'].includes(event.target.id)){
+                        operatorInput = event.target.id;
+                        entireOperation = numbersArray[0] + operatorInput;
+                        console.log(numbersArray, operatorInput);
+                        calculator.firstElementChild.textContent = entireOperation;
+                    }
+                    if (event.target.id === 'clear'){
+                        entireOperation = '';
+                        numbersArray = [];
+                        operatorInput = '';
+                        calculator.firstElementChild.textContent = entireOperation;
+                    }
                 }
-                else{
-                    numbersArray[0] = operate(numbersArray[0], numbersArray[1], operatorInput);
-                    numbersArray.splice(1, 1)
-                    entireOperation = numbersArray[0];
-                    calculator.firstElementChild.textContent = entireOperation;
-                }
-
-            }
-
-
-            if (['+', '-', '*', '/'].includes(event.target.id)){
-                operatorInput = event.target.id;
-                entireOperation = numbersArray[0] + operatorInput;
-                console.log(numbersArray, operatorInput);
-                calculator.firstElementChild.textContent = entireOperation;
-            }
-            
-
-            if (event.target.id === 'clear'){
-                entireOperation = '';
-                numbersArray = [];
-                operatorInput = '';
-                calculator.firstElementChild.textContent = entireOperation;
+            else{
+                calculator.firstElementChild.textContent = 'You need to start with a number';
             }
         });
     });
@@ -128,4 +128,5 @@ let entireOperation = '';
 
 numbersListener(); // this will be have to be used in some
 operatorListener();
+    
 //bigger event listener
