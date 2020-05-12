@@ -53,15 +53,24 @@ function numbersListener(){
             // This is so that if user divides by zero and the color changes to red
             // the color goes back after first new calculation
 
-            currentCal.style.color = 'black';
+            if (event.target.id === '<'){
+                displayCurrentCalc = displayCurrentCalc.slice(0, -1) // removes last symbol
+                partialOperation = partialOperation.slice(0, -1)
+                displayEntireCalc = displayEntireCalc.slice(0,-1);
+
+                entireCalc.textContent = displayEntireCalc;
+                currentCal.textContent = displayCurrentCalc;
+            }
             // calculator.firstElementChild.style.color = 'black';
+            else{
+                currentCal.style.color = 'black';
+                displayCurrentCalc += event.target.id;
+                partialOperation += event.target.id;
+                displayEntireCalc += event.target.id;
 
-            displayCurrentCalc += event.target.id;
-            partialOperation += event.target.id;
-            displayEntireCalc += event.target.id;
-
-            entireCalc.textContent = displayEntireCalc;
-            currentCal.textContent = displayCurrentCalc;
+                entireCalc.textContent = displayEntireCalc;
+                currentCal.textContent = displayCurrentCalc;
+            }
             //calculator.firstElementChild.textContent = displayCurrentCalc;
             
         })

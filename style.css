@@ -32,8 +32,7 @@ html, body{
     border-radius: 50px;
     margin: 5px 5px 0px 5px;
     box-shadow: 2px 2px 2px rgb(0, 0, 0);
-    /* Might likely copy this, want to add feature where the preview of the entire operation is visible */
-    /* text-align: right; */
+
     padding-right: 0.8rem;
     padding-top: 0.2rem;
     text-shadow: 0 0.04em 0.01em rgb(53, 48, 48);
@@ -93,8 +92,13 @@ html, body{
     font-size: 2rem;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
     box-shadow: 2px 2px 2px rgb(0, 0, 0);
+    
 }
 
 .numbers > button:hover{
     background-color: orange;
+}
+
+#back{
+    
 }
